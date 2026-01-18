@@ -2,6 +2,33 @@
 
 A workshop project demonstrating AI agents with tool use. Build a ReAct-style agent from scratch that combines stock market data and weather forecasts to make predictions based on the (fun) hypothesis that rainy days correlate with lower stock performance.
 
+## What Makes a System "Agentic"?
+
+An **agent** is more than a chatbot. It has:
+
+| Chatbot | Agent |
+|---------|-------|
+| Responds to one message | Runs autonomously until task is done |
+| No tools | Uses tools (APIs, functions, databases) |
+| Stateless | Maintains memory across turns |
+| Single response | Loops: Reason → Act → Observe → Repeat |
+
+### The Agent Loop
+
+```
+User Query
+    ↓
+┌─────────────────────────┐
+│  1. PERCEIVE            │  ← Read input/observations
+│  2. REASON              │  ← Decide what to do next
+│  3. ACT                 │  ← Call a tool or respond
+│  4. OBSERVE             │  ← Get tool result
+│  └──→ Loop until done   │
+└─────────────────────────┘
+    ↓
+Final Answer
+```
+
 ## What You'll Learn
 
 - How AI agents work under the hood (the ReAct loop)
@@ -85,7 +112,7 @@ python main.py "What's the outlook for AAPL?"
 
 ## Workshop Exercises
 
-Open `assignments/agent.py` and complete the TODO exercises:
+Open `assignments/react_agent.py` and complete the TODO exercises:
 
 ### Exercise A: Add Memory
 The agent needs to remember what it said. Without message history, it forgets everything!
@@ -102,6 +129,35 @@ The message list can grow too large. Implement a strategy to manage it.
 ### Exercise E: Handle Infinite Loops
 Detect when the agent is stuck calling the same tool repeatedly.
 
+## Agent Patterns Comparison
+
+This workshop includes two agent patterns. Try the same query with both to see the difference!
+
+**Query:** "What's the outlook for NVDA in NYC?"
+
+| Pattern | Flow |
+|---------|------|
+| **ReAct** | Reason("need weather") → get_weather() → Reason("need stock") → get_stock() → Answer |
+| **Planning** | Plan(["get_weather", "get_stock"]) → Execute all → Answer |
+| **Framework** | Same as ReAct, but abstracted by pydantic-ai |
+
+### Running Each Pattern
+
+```bash
+# ReAct agent (default) - interleaved reasoning
+uv run python main.py "What's the outlook for NVDA in NYC?"
+
+# Planning agent - plan first, then execute all
+uv run python main.py --planning "What's the outlook for NVDA in NYC?"
+```
+
+### When to Use Each Pattern
+
+| Pattern | Best For |
+|---------|----------|
+| **ReAct** | Dynamic tasks where next step depends on previous results |
+| **Planning** | Tasks with known steps that can be planned upfront |
+
 ## Project Structure
 
 ```
@@ -111,7 +167,8 @@ stock-weather-agent/
 │   ├── stock_tool.py        # get_stock_price() with caching
 │   └── weather_tool.py      # get_weather() with caching
 ├── assignments/
-│   └── agent.py             # Your workspace - complete the TODOs!
+│   ├── react_agent.py       # ReAct pattern - complete the TODOs!
+│   └── planning_agent.py    # Planning pattern - alternative approach
 ├── bonus/
 │   ├── pydantic_ai_version.py  # Same agent in ~20 lines
 │   └── cheat_sheet.md       # Framework "magic" explained

@@ -7,6 +7,7 @@ Run the agent from the command line with a query.
 Usage:
     python main.py "What's the outlook for AAPL?"
     python main.py "Check MSFT and the weather in New York"
+    python main.py --planning "What's the outlook for NVDA in NYC?"
 """
 
 import sys
@@ -22,7 +23,15 @@ def main():
         print("\nExamples:")
         print('  python main.py "What\'s the outlook for AAPL?"')
         print('  python main.py "Check MSFT and the weather in New York"')
+        print('  python main.py --planning "What\'s the outlook for NVDA in NYC?"')
+        print("\nFlags:")
+        print("  --planning    Use the planning agent instead of ReAct")
         return
+
+    # Check for --planning flag
+    use_planning = "--planning" in args
+    if use_planning:
+        args = [a for a in args if a != "--planning"]
 
     query = " ".join(args)
 
@@ -30,8 +39,13 @@ def main():
     print_config_status()
     print()
 
-    # Import the agent
-    from assignments.agent import run_agent
+    # Import the appropriate agent
+    if use_planning:
+        from assignments.planning_agent import run_planning_agent as run_agent
+        print("[Using Planning Agent]")
+    else:
+        from assignments.react_agent import run_agent
+        print("[Using ReAct Agent]")
 
     # Run the agent
     print(f"User: {query}")
