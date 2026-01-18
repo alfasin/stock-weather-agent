@@ -66,9 +66,6 @@ cp .env.example .env
 
 ```bash
 uv run python main.py "What's the outlook for AAPL?"
-
-# Using the complete solution
-uv run python main.py --solution "What's the outlook for NVDA in NYC?"
 ```
 
 #### Option B: Activate venv manually
@@ -115,8 +112,6 @@ stock-weather-agent/
 │   └── weather_tool.py      # get_weather() with caching
 ├── assignments/
 │   └── agent.py             # Your workspace - complete the TODOs!
-├── solutions/
-│   └── agent.py             # Reference implementation
 ├── bonus/
 │   ├── pydantic_ai_version.py  # Same agent in ~20 lines
 │   └── cheat_sheet.md       # Framework "magic" explained
@@ -186,10 +181,10 @@ Verify real API calls by checking the `cache/` directory.
 ### Full Agent Test
 
 ```bash
-uv run python main.py --solution "I'm looking at MSFT stock. Check the weather in New York and tell me what you think will happen this week."
+uv run python main.py "I'm looking at MSFT stock. Check the weather in New York and tell me what you think will happen this week."
 ```
 
-The agent should:
+Once you complete the exercises, the agent should:
 1. Call `get_weather("New York")`
 2. Call `get_stock_price("MSFT")`
 3. Combine both to make a prediction
