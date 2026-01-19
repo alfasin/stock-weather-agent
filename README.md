@@ -112,22 +112,33 @@ python main.py "What's the outlook for AAPL?"
 
 ## Workshop Exercises
 
+This workshop includes two agent patterns to implement. Each teaches different concepts about how AI agents work.
+
+### ReAct Agent Exercises
+
 Open `assignments/react_agent.py` and complete the TODO exercises:
 
-### Exercise A: Add Memory
-The agent needs to remember what it said. Without message history, it forgets everything!
+**Learning goals:** Dynamic reasoning, tool calling, memory management, error handling
 
-### Exercise B: Handle Tool Calls
-Implement the logic to detect when the LLM wants to call tools vs. give a final answer.
+| Exercise | Topic | Description |
+|----------|-------|-------------|
+| **A** | Memory | The agent needs to remember what it said. Without message history, it forgets everything! |
+| **B** | Tool Calls | Implement the logic to detect when the LLM wants to call tools vs. give a final answer. |
+| **C** | Hallucinations | LLMs sometimes "hallucinate" tools that don't exist. Handle this gracefully. |
+| **D** | Memory Bloat | The message list can grow too large. Implement a strategy to manage it. |
+| **E** | Infinite Loops | Detect when the agent is stuck calling the same tool repeatedly. |
 
-### Exercise C: Handle Hallucinations
-LLMs sometimes "hallucinate" tools that don't exist. Handle this gracefully.
+### Planning Agent Exercises
 
-### Exercise D: Handle Memory Bloat
-The message list can grow too large. Implement a strategy to manage it.
+Open `assignments/planning_agent.py` and complete the TODO exercises:
 
-### Exercise E: Handle Infinite Loops
-Detect when the agent is stuck calling the same tool repeatedly.
+**Learning goals:** Upfront planning, sequential execution, result synthesis
+
+| Exercise | Topic | Description |
+|----------|-------|-------------|
+| **A** | Create the Plan | Build the planning phase prompt and parse the LLM's JSON plan response. |
+| **B** | Execute the Plan | Loop through each planned tool call and execute it, handling unknown tools. |
+| **C** | Synthesize Results | Combine all tool results into a coherent final answer for the user. |
 
 ## Agent Patterns Comparison
 
