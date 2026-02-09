@@ -75,7 +75,7 @@ def call_llm_with_retry(messages, tools, max_retries=3):
     raise Exception("Max retries exceeded.")
 
 
-def run_agent(user_query: str, max_iterations: int = 10) -> str:
+def run_agent(user_query: str, max_iterations: int = 100) -> str:
     """
     Run the ReAct agent loop.
 
